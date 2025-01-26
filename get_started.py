@@ -48,12 +48,16 @@ def main():
     if not os.getenv("AZURE_API_BASE"):
         print("\nError: AZURE_API_BASE not found in .env file")
         sys.exit(1)
+    if not os.getenv("AZURE_MODEL"):
+        print("\nError: AZURE_MODEL not found in .env file")
+        sys.exit(1)
 
     # get keys from .env
     azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
     azure_api_base = os.getenv("AZURE_API_BASE")
-
-    model = LiteLLMModel(model_id="azure/gpt-4o-global", api_key=azure_openai_api_key, api_base=azure_api_base, max_tokens=4096)
+    azure_model = os.getenv("AZURE_MODEL")
+    # refer to Azure model as azure/NAME_OF_YOUR_DEPLOYED_MODEL
+    model = LiteLLMModel(model_id=f"azure/{azure_model}", api_key=azure_openai_api_key, api_base=azure_api_base, max_tokens=4096)
     
     agent = CodeAgent(
         model=model,
