@@ -39,18 +39,21 @@ def main():
     load_dotenv()
 
     # Check for required environment variables
-    if not os.getenv("OPENAI_API_KEY"):
+    if not os.getenv("AZURE_OPENAI_API_KEY"):
         print("\nError: OPENAI_API_KEY not found in .env file")
         sys.exit(1)
     if not os.getenv("BING_SUBSCRIPTION_KEY"):
         print("\nError: BING_SUBSCRIPTION_KEY not found in .env file")
         sys.exit(1)
+    if not os.getenv("AZURE_API_BASE"):
+        print("\nError: AZURE_API_BASE not found in .env file")
+        sys.exit(1)
 
     # get keys from .env
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    bing_subscription_key = os.getenv("BING_SUBSCRIPTION_KEY")
+    azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+    azure_api_base = os.getenv("AZURE_API_BASE")
 
-    model = LiteLLMModel(model_id="openai/gpt-4o-mini", api_key=openai_api_key, max_tokens=4096)
+    model = LiteLLMModel(model_id="azure/gpt-4o-global", api_key=azure_openai_api_key, api_base=azure_api_base, max_tokens=4096)
     
     agent = CodeAgent(
         model=model,
@@ -59,8 +62,11 @@ def main():
         tools=[]
     )
 
-    result = agent.run(question)
-    print(result)
+    extra_instructions="""
+        Answer in plain text. Do not use markdown or JSON.
+    """
+
+    result = agent.run(question + " " + extra_instructions)
 
 if __name__ == "__main__":
     main()
