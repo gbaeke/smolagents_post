@@ -63,7 +63,8 @@ def main():
         model=model,
         max_steps=10,
         verbosity_level=2,
-        tools=[]
+        tools=[],
+        # additional_authorized_imports=["requests", "bs4"]
     )
 
     extra_instructions="""
