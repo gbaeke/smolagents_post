@@ -1,4 +1,5 @@
 smolagents
+transformers
 litellm
 python-dotenv 
 arize-phoenix

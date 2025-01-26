@@ -55,7 +55,8 @@ def main():
     agent = CodeAgent(
         model=model,
         max_steps=10,
-        verbosity_level=2
+        verbosity_level=2,
+        tools=[]
     )
 
     result = agent.run(question)
