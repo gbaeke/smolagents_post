@@ -22,8 +22,8 @@ SmolagentsInstrumentor().instrument(tracer_provider=trace_provider)
 def print_usage():
     print("\nUsage: python app.py \"your question in quotes\"")
     print("\nExample:")
-    print("  python app.py \"Find the cheapest laptop on bol.com\"")
-    print("  python app.py \"Search for Python tutorials\"")
+    print("  python app.py \"Find the cheapest laptop\"")
+    print("  python app.py \"Find a Python tutorial to write a FastAPI API\"")
     sys.exit(1)
 
 def main():
